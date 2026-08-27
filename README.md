@@ -1,174 +1,175 @@
 # Privacy Policy for Alexandria
 
-**Last Updated**: November 19, 2025
+**Last Updated**: August 27, 2026
 
 ## Introduction
 
-Alexandria ("we", "our", or "the app") is a mobile application that allows users to access and stream content from their personal Audiobookshelf and Kavita servers. This privacy policy explains how we handle your information.
+Alexandria is a client for media servers **you** run. It has no account
+system, no backend of its own, and no analytics. Your library, your
+credentials, and your listening history live on your device and on your
+servers.
 
-## Information We Collect
+This policy describes exactly what leaves your device, when, and to
+whom. Where a feature sends anything to a third party, that is stated
+plainly below rather than buried.
 
-### Information You Provide
+---
 
-Alexandria collects and stores the following information locally on your device:
+## What Alexandria Stores On Your Device
 
-- **Server Connection Details**: URLs of your Audiobookshelf and Kavita servers
-- **Authentication Credentials**: Usernames, passwords, API keys, and authentication tokens
-- **Playback Progress**: Current position in audiobooks and reading progress in comics/manga
-- **Bookmarks**: User-created bookmarks in audiobooks
-- **App Preferences**: Settings and configuration choices
+- **Server connection details** — the addresses of the media servers you
+  add (Audiobookshelf, Kavita, Plex, Jellyfin, Komga, Navidrome,
+  Grimmory/BookLore, Calibre, Calibre-Web, Storyteller, Stump, and any
+  OPDS catalogue).
+- **Credentials** — usernames, passwords, API keys and tokens, held in
+  the platform secure store (iOS Keychain, Android
+  EncryptedSharedPreferences) and excluded from device backups.
+- **Playback and reading progress**, bookmarks, notes and highlights.
+- **A local index of your library** (titles, authors, series, genres,
+  years, durations, cover URLs) used for search, statistics and
+  recommendations.
+- **Statistics and reading plans** you create.
+- **Downloaded media** you choose to download.
+- **AI chat history**, when you use the optional Librarian — the
+  conversations are kept on your device so you can return to them, and
+  can be deleted at any time from the chat screen.
 
-### Information We Do NOT Collect
+None of this is transmitted to the developer. Alexandria has no server
+that receives your data.
 
-- We do NOT collect, transmit, or store any of your data on our servers
-- We do NOT track your usage or behavior
-- We do NOT share your information with third parties
-- We do NOT use analytics or advertising services
-- We do NOT have access to your personal servers or content
+---
 
-## How We Use Your Information
+## Where Your Data Goes
 
-All information is stored **locally on your device** using secure storage mechanisms:
+### 1. Your own servers
 
-- **Encrypted Storage**: Sensitive credentials (passwords, tokens, API keys) are stored using platform-specific secure storage:
-  - Android: EncryptedSharedPreferences (AES-256 encryption)
-  - iOS: Keychain Services
-- **Local Storage**: Non-sensitive data (server URLs, usernames) is stored in local preferences
-- **No Cloud Backup**: Credentials are excluded from device backups for security
+The main data flow. Alexandria connects directly to the servers you
+configure, using the credentials you provide, to browse, stream,
+download, and sync your progress. Nothing passes through us.
 
-### Data Usage
+### 2. Your own AI server — optional, off by default
 
-Your information is used solely to:
-1. Connect to your personal Audiobookshelf and Kavita servers
-2. Authenticate with your servers using your credentials
-3. Stream and download content from your servers
-4. Track playback progress and bookmarks locally
-5. Provide a seamless user experience
+If you enable **Settings → AI** and point Alexandria at a model
+endpoint, features such as The Librarian, playlist prompts, "catch me
+up" recaps, shelf suggestions and describe-a-book send requests to
+**the endpoint you configured** — which may be software on your own
+machine (Ollama, LM Studio, llama.cpp) or a third-party cloud provider
+if you choose one.
 
-## Data Sharing and Disclosure
+What is sent: **media metadata and your own typed messages** — titles,
+authors, series and volume numbers, genres, artist and album names,
+reading progress, and the text of your questions.
 
-**We do not share your data with anyone.** Your information is:
+What is never sent: credentials, API keys, tokens, server addresses,
+file paths, or cover-image URLs.
 
-- Stored only on your personal device
-- Transmitted only directly to the servers YOU configure
-- Never sent to our servers or third-party services
-- Never sold, rented, or shared
+If you configure a cloud provider, that provider's own privacy policy
+governs what it does with the request. Alexandria ships no API key and
+no default endpoint, and this feature stays off until you turn it on.
 
-The only data transmission occurs between:
-- Your device ↔ Your Audiobookshelf server
-- Your device ↔ Your Kavita server
+### 3. Third-party services used by specific features
 
-## Data Security
+These receive **content metadata only** — never your credentials, and
+never an identifier that ties a request to you personally.
 
-We implement several security measures:
+| Service | When | What is sent |
+|---|---|---|
+| **LRCLib** (lrclib.net) | When lyrics are shown for a track | Track title, artist, album, duration |
+| **Last.fm** (audioscrobbler.com) | When building music recommendations | Artist names |
+| **Audible catalogue API** (api.audible.com) | Upcoming-releases sync, roughly every 15 days | Author names from your library (up to 15) |
+| **Plex.tv** | Only if you sign in to Plex | Plex's own sign-in flow, handled by Plex |
+| **RevenueCat** | Subscription purchase and restore | A random app user ID, purchase receipts, and basic device/app info |
 
-1. **Encrypted Credential Storage**: All passwords, tokens, and API keys are encrypted using platform-specific secure storage
-2. **HTTPS Enforcement**: The app encourages HTTPS connections (warns about HTTP)
-3. **No Third-Party Services**: No analytics, crash reporting, or advertising SDKs
-4. **Local-Only Processing**: All data processing happens on your device
+### 4. Downloads that carry no personal data
 
-## Your Data Rights
+Read-Along speech models are fetched from Hugging Face and from the
+project's GitHub releases. These are ordinary file downloads and contain
+nothing about you or your library.
 
-Since all data is stored locally on your device, you have complete control:
+---
 
-- **Access**: View all stored data in the app settings
-- **Deletion**: Clear all data using "Clear Settings" in the app
-- **Export**: Your data never leaves your device
-- **Portability**: Uninstalling the app removes all data
+## What Alexandria Never Does
+
+- No analytics, telemetry, tracking, or advertising SDKs.
+- No developer-operated server receives your library, credentials or
+  activity.
+- Your credentials never leave your device except to authenticate with
+  the server they belong to.
+- Nothing is sold, rented, or shared for marketing.
+
+---
+
+## Speech, Text and Media Processing
+
+Read-Along transcription runs **entirely on your device** — Apple's
+on-device speech engine on iOS, a locally downloaded Whisper model on
+Android. Audio is never uploaded for transcription. Translation uses
+Apple's on-device translation where available.
+
+---
+
+## Data Retention and Deletion
+
+Everything is on your device, so you control it:
+
+- **Clear All Cache** (Settings → Downloads & Storage) removes local
+  data other than credentials.
+- **Downloads** can be deleted individually or in bulk from the
+  Downloads screen.
+- **AI chat history** can be cleared from the Librarian's History sheet.
+- **Signing out** removes the credentials for that server.
+- **Uninstalling** removes everything Alexandria stored.
+
+We cannot delete your data on request because we never receive it. Data
+held by RevenueCat (purchase records) or by an AI provider you chose is
+subject to that company's policy.
+
+---
 
 ## Children's Privacy
 
-Alexandria does not collect any personal information from anyone, including children under 13. The app acts only as a client to access your personal servers.
+Alexandria is not directed at children under 13 and collects no personal
+information from anyone. Content shown comes from servers the user
+configures.
 
-## Third-Party Servers
-
-Alexandria connects to servers that YOU configure:
-
-- **Your Responsibility**: You are responsible for the privacy practices of your own servers
-- **Not Our Servers**: We do not operate, control, or have access to your Audiobookshelf or Kavita servers
-- **Server Privacy**: Please review the privacy policies of Audiobookshelf and Kavita if running these servers
-
-## Changes to This Privacy Policy
-
-We may update this privacy policy from time to time. We will notify you of any changes by:
-- Posting the new privacy policy on this page
-- Updating the "Last Updated" date
-- Notifying users within the app (for significant changes)
-
-## Data Retention
-
-- **Local Storage**: Data is retained until you delete it or uninstall the app
-- **No Server Storage**: We do not retain any data on servers
+---
 
 ## Permissions
 
-Alexandria requests the following permissions:
+**Android**: internet and network state; notifications (playback
+controls and reminders); foreground service (background playback and
+downloads); storage (downloaded files).
 
-### Android
-- **INTERNET**: Required to connect to your servers and stream content
+**iOS**: background audio; local notifications; network access. Siri and
+Spotlight integration where enabled.
 
-### iOS
-- **Network Access**: Required to connect to your servers and stream content
+---
 
-We do not request any other permissions (no location, contacts, camera, etc.).
+## Changes to This Policy
 
-## Contact Us
+Material changes will update the date above and be noted in the app's
+release notes. This revision (August 2026) documents the optional AI
+feature, local AI chat history, and the third-party services listed in
+section 3, which earlier versions of this policy did not describe.
 
-If you have questions about this privacy policy or how Alexandria handles your information, please contact us at:
+---
 
-**Email**: stoutservers@gmail.com
+## Contact
 
-## Legal Compliance
+**Email**: stoutc24@gmail.com
+**Issues**: https://github.com/stoutc24/alexandria-app
 
-This privacy policy complies with:
-- General Data Protection Regulation (GDPR)
-- California Consumer Privacy Act (CCPA)
-- Google Play Store privacy requirements
-- Apple App Store privacy requirements
+---
 
 ## Summary
 
-**In Plain English:**
-- Alexandria is a client app that connects to YOUR servers
-- All your data stays on YOUR device and YOUR servers
-- We don't collect, store, or share anything
-- You have complete control over your data
-- Sensitive information is encrypted on your device
+Alexandria is a client, not a service. Your servers, your credentials,
+your library — all local. A small number of well-scoped lookups go to
+third parties to power lyrics, recommendations and release dates, and an
+AI endpoint receives library metadata **only if you configure one**.
+There is no tracking, no advertising, and no server of ours holding
+anything about you.
 
 ---
 
-## App Store Data Safety Declarations
-
-### Google Play Data Safety
-
-**Data Collection: YES** (locally only)
-
-| Data Type | Collected | Shared | Purpose | Location |
-|-----------|-----------|--------|---------|----------|
-| Server URLs | Yes | No | Authentication | Device only |
-| Usernames | Yes | No | Authentication | Device only |
-| Passwords | Yes | No | Authentication | Device only (encrypted) |
-| Auth Tokens | Yes | No | Authentication | Device only (encrypted) |
-| Progress Data | Yes | No | User Experience | Device only |
-
-**Security Practices:**
-- ✅ Data is encrypted in transit (HTTPS)
-- ✅ You can request data deletion
-- ✅ Data is not shared with third parties
-- ✅ Committed to privacy standards
-
-### Apple App Store Privacy Nutrition Label
-
-**Data Not Collected**
-- We do not collect data linked to the user's identity
-- We do not collect data used to track the user
-
-**Data Stored Locally Only**
-- Server configuration (not linked to identity)
-- Authentication credentials (encrypted, not shared)
-- Playback progress (not linked to identity, not shared)
-
----
-
-**Last Reviewed**: November 19, 2025
-**Version**: 1.0
+**Version**: 2.0 — covers Alexandria 3.1.0
