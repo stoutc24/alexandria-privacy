@@ -156,8 +156,7 @@ section 3, which earlier versions of this policy did not describe.
 
 ## Contact
 
-**Email**: stoutc24@gmail.com
-**Issues**: https://github.com/stoutc24/alexandria-app
+**Email**: stoutservers@gmail.com
 
 ---
 
